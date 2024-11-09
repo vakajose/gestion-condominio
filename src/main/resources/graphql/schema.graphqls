@@ -1,0 +1,77 @@
+type Condominio {
+    id: ID!
+    nombre: String!
+    direccion: String!
+    modulos: [Modulo]
+    parametros: [Parametro]
+}
+
+type Modulo {
+    id: ID!
+    nombre: String!
+    cantidadDepartamentos: Int
+    tipoModulo: String
+    areasSociales: [String]
+    departamentos: [Departamento]
+}
+
+type Departamento {
+    id: ID!
+    numero: String!
+    tipo: String!
+    propietario: Propietario
+    arrendatario: Arrendatario
+    vivientes: [Viviente]
+    expensas: [Expensa]
+}
+
+type Propietario {
+    id: ID!
+    nombre: String!
+    contacto: String
+    departamentos: [Departamento]
+}
+
+type Arrendatario {
+    id: ID!
+    nombre: String!
+    contacto: String
+    departamentos: [Departamento]
+}
+
+type Viviente {
+    id: ID!
+    nombre: String!
+    contacto: String
+    relacion: String
+    departamento: Departamento
+}
+
+type Expensa {
+    id: ID!
+    departamento: Departamento
+    monto: Float
+    fechaEmision: String
+    fechaVencimiento: String
+    fechaPago: String
+    periodo: String
+    estadoPago: String
+}
+
+type Parametro {
+    id: ID!
+    grupo: String
+    clave: String
+    valor: String
+}
+
+# Queries
+type Query {
+    condominios: [Condominio]
+    condominio(id: ID!): Condominio
+}
+
+# Mutations
+type Mutation {
+    registrarCondominio(nombre: String!, direccion: String!): Condominio
+}
