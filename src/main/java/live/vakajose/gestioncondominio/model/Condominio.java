@@ -22,5 +22,6 @@ public class Condominio {
     private String direccion;
     private List<Modulo> modulos;
     private List<Parametro> parametros;
+    private List<Persona> regentes;
     // getters y setters
 }

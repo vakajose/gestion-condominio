@@ -13,9 +13,9 @@ public class Departamento {
     private String id;
     private String numero;
     private String tipo;
-    private Propietario propietario;
-    private Arrendatario arrendatario;
-    private List<Viviente> vivientes;
+    private Persona propietario;
+    private Persona arrendatario;
+    private List<Persona> vivientes;
     private List<Expensa> expensas;
     // getters y setters
 }
