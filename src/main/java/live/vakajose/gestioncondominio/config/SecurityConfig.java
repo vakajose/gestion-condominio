@@ -2,6 +2,7 @@ package live.vakajose.gestioncondominio.config;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -29,6 +30,9 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
 
+    @Value("${allowed.origin}")
+    private String allowedOrigin;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -51,7 +55,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/graphql")
-                        .allowedOrigins("http://localhost:4200")
+                        .allowedOrigins(allowedOrigin)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
             }
         };

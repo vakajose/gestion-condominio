@@ -53,18 +53,20 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
-        var user = Usuario.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .roles(Collections.singletonList(request.getRol().getId()))
-                .build();
-
         var persona = Persona
                 .builder()
                 .ci(request.getCi())
                 .nombre(request.getNombre())
                 .build();
-        personaRepository.save(persona);
+        var savedPersona = personaRepository.save(persona);
+        var user = Usuario.builder()
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .persona(savedPersona)
+                .roles(Collections.singletonList(request.getRol().getId()))
+                .build();
+        var savedUser = usuarioRepository.save(user);
+
         var jwtToken = jwtTokenUtil.generateToken(user.getUsername());
         //var refreshToken = jwtService.generateRefreshToken(user);
         //saveUserToken(savedUser, jwtToken);
